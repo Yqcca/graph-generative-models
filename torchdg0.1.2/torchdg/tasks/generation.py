@@ -169,6 +169,114 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 if qed.max().item() > 0.93:
                     print("QED max = %s" % qed.max().item())
                     print(self.best_results["QED"])
+                    
+            elif task == "amlodipine_mpo":
+                amlodipine_mpo = metrics.AMLODIPINE_MPO(graph)
+                metric["AMLODIPINE_MPO"] = amlodipine_mpo.mean()
+                metric["AMLODIPINE_MPO(max)"] = amlodipine_mpo.max()
+                self.update_best_result(graph, amlodipine_mpo, "AMLODIPINE_MPO")      
+
+                reward += (amlodipine_mpo / self.reward_temperature).exp()
+
+                if amlodipine_mpo.max().item() > 0.8:
+                    print("AMLODIPINE_MPO max = %s" % amlodipine_mpo.max().item())
+                    print(self.best_results["AMLODIPINE_MPO"])
+                    
+            elif task == "fexofenadine_mpo":
+                fexofenadine_mpo = metrics.FEXOFENADINE_MPO(graph)
+                metric["FEXOFENADINE_MPO"] = fexofenadine_mpo.mean()
+                metric["FEXOFENADINE_MPO(max)"] = fexofenadine_mpo.max()
+                self.update_best_result(graph, fexofenadine_mpo, "FEXOFENADINE_MPO")      
+
+                reward += (fexofenadine_mpo / self.reward_temperature).exp()
+
+                if fexofenadine_mpo.max().item() > 0.8:
+                    print("FEXOFENADINE_MPO max = %s" % fexofenadine_mpo.max().item())
+                    print(self.best_results["FEXOFENADINE_MPO"])
+
+            elif task == "osimertinib_mpo":
+                osimertinib_mpo = metrics.FEXOFENADINE_MPO(graph)
+                metric["FEXOFENADINE_MPO"] = osimertinib_mpo.mean()
+                metric["FEXOFENADINE_MPO(max)"] = osimertinib_mpo.max()
+                self.update_best_result(graph, osimertinib_mpo, "FEXOFENADINE_MPO")      
+
+                reward += (osimertinib_mpo / self.reward_temperature).exp()
+
+                if osimertinib_mpo.max().item() > 0.8:
+                    print("FEXOFENADINE_MPO max = %s" % osimertinib_mpo.max().item())
+                    print(self.best_results["FEXOFENADINE_MPO"])
+
+            elif task == "perindopril_mpo":
+                perindopril_mpo = metrics.PERINDOPRIL_MPO(graph)
+                metric["PERINDOPRIL_MPO"] = perindopril_mpo.mean()
+                metric["PERINDOPRIL_MPO(max)"] = perindopril_mpo.max()
+                self.update_best_result(graph, perindopril_mpo, "PERINDOPRIL_MPO")      
+
+                reward += (perindopril_mpo / self.reward_temperature).exp()
+
+                if perindopril_mpo.max().item() > 0.8:
+                    print("PERINDOPRIL_MPO max = %s" % perindopril_mpo.max().item())
+                    print(self.best_results["PERINDOPRIL_MPO"])
+
+            elif task == "ranolazine_mpo":
+                ranolazine_mpo = metrics.RANOLAZINE_MPO(graph)
+                metric["RANOLAZINE_MPO"] = ranolazine_mpo.mean()
+                metric["RANOLAZINE_MPO(max)"] = ranolazine_mpo.max()
+                self.update_best_result(graph, ranolazine_mpo, "RANOLAZINE_MPO")      
+
+                reward += (ranolazine_mpo / self.reward_temperature).exp()
+
+                if ranolazine_mpo.max().item() > 0.8:
+                    print("RANOLAZINE_MPO max = %s" % ranolazine_mpo.max().item())
+                    print(self.best_results["RANOLAZINE_MPO"])
+
+            elif task == "sitagliptin_mpo":
+                sitagliptin_mpo = metrics.SITAGLIPTIN_MPO(graph)
+                metric["SITAGLIPTIN_MPO"] = sitagliptin_mpo.mean()
+                metric["SITAGLIPTIN_MPO(max)"] = sitagliptin_mpo.max()
+                self.update_best_result(graph, sitagliptin_mpo, "SITAGLIPTIN_MPO")      
+
+                reward += (sitagliptin_mpo / self.reward_temperature).exp()
+
+                if sitagliptin_mpo.max().item() > 0.8:
+                    print("SITAGLIPTIN_MPO max = %s" % sitagliptin_mpo.max().item())
+                    print(self.best_results["SITAGLIPTIN_MPO"])
+
+            elif task == "zaleplon_mpo":
+                zaleplon_mpo = metrics.ZALEPLON_MPO(graph)
+                metric["ZALEPLON_MPO"] = zaleplon_mpo.mean()
+                metric["ZALEPLON_MPO(max)"] = zaleplon_mpo.max()
+                self.update_best_result(graph, zaleplon_mpo, "ZALEPLON_MPO")      
+
+                reward += (zaleplon_mpo / self.reward_temperature).exp()
+
+                if zaleplon_mpo.max().item() > 0.8:
+                    print("ZALEPLON_MPO max = %s" % zaleplon_mpo.max().item())
+                    print(self.best_results["ZALEPLON_MPO"])         
+
+            elif task == "valsartan_smarts":
+                valsartan_smarts = metrics.VALSARTAN_SMARTS(graph)
+                metric["VALSARTAN_SMARTS"] = valsartan_smarts.mean()
+                metric["VALSARTAN_SMARTS(max)"] = valsartan_smarts.max()
+                self.update_best_result(graph, valsartan_smarts, "VALSARTAN_SMARTS")      
+
+                reward += (valsartan_smarts / self.reward_temperature).exp()
+
+                if valsartan_smarts.max().item() > 0.8:
+                    print("VALSARTAN_SMARTS max = %s" % valsartan_smarts.max().item())
+                    print(self.best_results["VALSARTAN_SMARTS"])  
+
+            elif task == "drd2":
+                drd2 = metrics.DRD2(graph)
+                metric["DRD2"] = drd2.mean()
+                metric["DRD2(max)"] = drd2.max()
+                self.update_best_result(graph, drd2, "DRD2")      
+
+                reward += (drd2 / self.reward_temperature).exp()
+
+                if drd2.max().item() > 0.8:
+                    print("DRD2 max = %s" % drd2.max().item())
+                    print(self.best_results["DRD2"])
 
             else:
                 raise ValueError("Unknown task `%s`" % task)

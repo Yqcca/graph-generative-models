@@ -24,7 +24,8 @@ class ZINC250k(data.MoleculeDataset):
     url = "https://raw.githubusercontent.com/aspuru-guzik-group/chemical_vae/master/models/zinc_properties/" \
           "250k_rndm_zinc_drugs_clean_3.csv"
     md5 = "b59078b2b04c6e9431280e3dc42048d5"
-    target_fields = ["logP", "qed"]
+    target_fields = ["logP", "qed", "drd2", "amlodipine_mpo", "fexofenadine_mpo", "osimertinib_mpo", \
+                     "perindopril_mpo", "ranolazine_mpo", "sitagliptin_mpo", "zaleplon_mpo", "valsartan_smarts"]
 
     def __init__(self, path, verbose=1, **kwargs):
         path = os.path.expanduser(path)
