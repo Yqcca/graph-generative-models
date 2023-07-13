@@ -10,6 +10,153 @@ from torchdrug.layers import functional
 from torchdrug.core import Registry as R
 from torchdrug.metrics.rdkit import sascorer
 
+from tdc.chem_utils.oracle import oracle
+from tdc import Oracle
+
+@R.register("metrics.drd2")
+def DRD2(pred):
+    """
+    DRD2
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    drd2 = []
+    ADRD2 = Oracle(name = 'drd2')
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = ADRD2(mol.to_smiles())
+        drd2.append(score)
+
+    return torch.tensor(drd2, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.amlodipine_mpo")
+def AMLODIPINE_MPO(pred):
+    """
+    amlodipine_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    amlodipine_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.amlodipine_mpo(mol.to_smiles())
+        amlodipine_mpo.append(score)
+
+    return torch.tensor(amlodipine_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.fexofenadine_mpo")
+def FEXOFENADINE_MPO(pred):
+    """
+    fexofenadine_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    fexofenadine_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.fexofenadine_mpo(mol.to_smiles())
+        fexofenadine_mpo.append(score)
+
+    return torch.tensor(fexofenadine_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.osimertinib_mpo")
+def OSIMERTINIB_MPO(pred):
+    """
+    osimertinib_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    osimertinib_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.osimertinib_mpo(mol.to_smiles())
+        osimertinib_mpo.append(score)
+
+    return torch.tensor(osimertinib_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.perindopril_mpo")
+def PERINDOPRIL_MPO(pred):
+    """
+    perindopril_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    perindopril_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.perindopril_mpo(mol.to_smiles())
+        perindopril_mpo.append(score)
+
+    return torch.tensor(perindopril_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.ranolazine_mpo")
+def RANOLAZINE_MPO(pred):
+    """
+    ranolazine_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    ranolazine_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.ranolazine_mpo(mol.to_smiles())
+        ranolazine_mpo.append(score)
+
+    return torch.tensor(ranolazine_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.sitagliptin_mpo")
+def SITAGLIPTIN_MPO(pred):
+    """
+    sitagliptin_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    sitagliptin_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.sitagliptin_mpo(mol.to_smiles())
+        sitagliptin_mpo.append(score)
+
+    return torch.tensor(sitagliptin_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.zaleplon_mpo")
+def ZALEPLON_MPO(pred):
+    """
+    zaleplon_mpo
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    zaleplon_mpo = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.zaleplon_mpo(mol.to_smiles())
+        zaleplon_mpo.append(score)
+
+    return torch.tensor(zaleplon_mpo, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.valsartan_smarts")
+def VALSARTAN_SMARTS(pred):
+    """
+    valsartan_smarts
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    valsartan_smarts = []
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = oracle.valsartan_smarts(mol.to_smiles())
+        valsartan_smarts.append(score)
+
+    return torch.tensor(valsartan_smarts, dtype=torch.float, device=pred.device)
 
 @R.register("metrics.auroc")
 def area_under_roc(pred, target):
