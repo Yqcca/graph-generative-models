@@ -153,6 +153,34 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 elif task == "qed":
                     metric["QED"] = nan
                     metric["QED (max)"] = nan
+                elif task == "amlodipine_mpo":
+                    metric["AMLODIPINE_MPO"] = nan
+                    metric["AMLODIPINE_MPO(max)"] = nan
+                elif task == "fexofenadine_mpo":
+                    metric["FEXOFENADINE_MPO"] = nan
+                    metric["FEXOFENADINE_MPO(max)"] = nan
+                elif task == "osimertinib_mpo":
+                    metric["OSIMERTINIB_MPO"] = nan
+                    metric["OSIMERTINIB_MPO(max)"] = nan
+                elif task == "perindopril_mpo":
+                    metric["PERINDOPRIL_MPO"] = nan
+                    metric["PERINDOPRIL_MPO(max)"] = nan
+                elif task == "ranolazine_mpo":
+                    metric["RANOLAZINE_MPO"] = nan
+                    metric["RANOLAZINE_MPO(max)"] = nan
+                elif task == "sitagliptin_mpo":
+                    metric["SITAGLIPTIN_MPO"] = nan
+                    metric["SITAGLIPTIN_MPO(max)"] = nan
+                elif task == "zaleplon_mpo":
+                    metric["ZALEPLON_MPO"] = nan
+                    metric["ZALEPLON_MPO(max)"] = nan
+                elif task == "valsartan_smarts":
+                    metric["VALSARTAN_SMARTS"] = nan
+                    metric["VALSARTAN_SMARTS(max)"] = nan
+                elif task == "drd2":
+                    metric["DRD2"] = nan
+                    metric["DRD2(max)"] = nan
+
             metric["node PPO objective"] = nan
             metric["edge PPO objective"] = nan
 
@@ -208,16 +236,16 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                     print(self.best_results["FEXOFENADINE_MPO"])
 
             elif task == "osimertinib_mpo":
-                osimertinib_mpo = metrics.FEXOFENADINE_MPO(graph)
-                metric["FEXOFENADINE_MPO"] = osimertinib_mpo.mean()
-                metric["FEXOFENADINE_MPO(max)"] = osimertinib_mpo.max()
-                self.update_best_result(graph, osimertinib_mpo, "FEXOFENADINE_MPO")      
+                osimertinib_mpo = metrics.OSIMERTINIB_MPO(graph)
+                metric["OSIMERTINIB_MPO"] = osimertinib_mpo.mean()
+                metric["OSIMERTINIB_MPO(max)"] = osimertinib_mpo.max()
+                self.update_best_result(graph, osimertinib_mpo, "OSIMERTINIB_MPO")      
 
                 reward += (osimertinib_mpo / self.reward_temperature).exp()
 
                 if osimertinib_mpo.max().item() > 0.8:
-                    print("FEXOFENADINE_MPO max = %s" % osimertinib_mpo.max().item())
-                    print(self.best_results["FEXOFENADINE_MPO"])
+                    print("OSIMERTINIB_MPO max = %s" % osimertinib_mpo.max().item())
+                    print(self.best_results["OSIMERTINIB_MPO"])
 
             elif task == "perindopril_mpo":
                 perindopril_mpo = metrics.PERINDOPRIL_MPO(graph)
@@ -937,6 +965,34 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 elif task == "qed":
                     metric["QED"] = nan
                     metric["QED (max)"] = nan
+                elif task == "amlodipine_mpo":
+                    metric["AMLODIPINE_MPO"] = nan
+                    metric["AMLODIPINE_MPO(max)"] = nan
+                elif task == "fexofenadine_mpo":
+                    metric["FEXOFENADINE_MPO"] = nan
+                    metric["FEXOFENADINE_MPO(max)"] = nan
+                elif task == "osimertinib_mpo":
+                    metric["OSIMERTINIB_MPO"] = nan
+                    metric["OSIMERTINIB_MPO(max)"] = nan
+                elif task == "perindopril_mpo":
+                    metric["PERINDOPRIL_MPO"] = nan
+                    metric["PERINDOPRIL_MPO(max)"] = nan
+                elif task == "ranolazine_mpo":
+                    metric["RANOLAZINE_MPO"] = nan
+                    metric["RANOLAZINE_MPO(max)"] = nan
+                elif task == "sitagliptin_mpo":
+                    metric["SITAGLIPTIN_MPO"] = nan
+                    metric["SITAGLIPTIN_MPO(max)"] = nan
+                elif task == "zaleplon_mpo":
+                    metric["ZALEPLON_MPO"] = nan
+                    metric["ZALEPLON_MPO(max)"] = nan
+                elif task == "valsartan_smarts":
+                    metric["VALSARTAN_SMARTS"] = nan
+                    metric["VALSARTAN_SMARTS(max)"] = nan
+                elif task == "drd2":
+                    metric["DRD2"] = nan
+                    metric["DRD2(max)"] = nan
+
             metric["PPO objective"] = nan
 
             return all_loss, metric
@@ -996,16 +1052,16 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                     print(self.best_results["FEXOFENADINE_MPO"])
 
             elif task == "osimertinib_mpo":
-                osimertinib_mpo = metrics.FEXOFENADINE_MPO(graph)
-                metric["FEXOFENADINE_MPO"] = osimertinib_mpo.mean()
-                metric["FEXOFENADINE_MPO(max)"] = osimertinib_mpo.max()
-                self.update_best_result(graph, osimertinib_mpo, "FEXOFENADINE_MPO")      
+                osimertinib_mpo = metrics.OSIMERTINIB_MPO(graph)
+                metric["OSIMERTINIB_MPO"] = osimertinib_mpo.mean()
+                metric["OSIMERTINIB_MPO(max)"] = osimertinib_mpo.max()
+                self.update_best_result(graph, osimertinib_mpo, "OSIMERTINIB_MPO")      
 
                 reward += (osimertinib_mpo / self.reward_temperature).exp()
 
                 if osimertinib_mpo.max().item() > 0.8:
-                    print("FEXOFENADINE_MPO max = %s" % osimertinib_mpo.max().item())
-                    print(self.best_results["FEXOFENADINE_MPO"])
+                    print("OSIMERTINIB_MPO max = %s" % osimertinib_mpo.max().item())
+                    print(self.best_results["OSIMERTINIB_MPO"])
 
             elif task == "perindopril_mpo":
                 perindopril_mpo = metrics.PERINDOPRIL_MPO(graph)
