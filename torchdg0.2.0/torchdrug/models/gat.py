@@ -18,6 +18,7 @@ class GraphAttentionNetwork(nn.Module, core.Configurable):
     Parameters:
         input_dim (int): input dimension
         hidden_dims (list of int): hidden dimensions
+        num_relation (int): number of relation
         edge_input_dim (int, optional): dimension of edge features
         num_head (int, optional): number of attention heads
         negative_slope (float, optional): negative slope of leaky relu activation
@@ -28,13 +29,14 @@ class GraphAttentionNetwork(nn.Module, core.Configurable):
         readout (str, optional): readout function. Available functions are ``sum`` and ``mean``.
     """
 
-    def __init__(self, input_dim, hidden_dims, edge_input_dim=None, num_head=1, negative_slope=0.2, short_cut=False,
+    def __init__(self, input_dim, hidden_dims, num_relation=None, edge_input_dim=None, num_head=1, negative_slope=0.2, short_cut=False,
                  batch_norm=False, activation="relu", concat_hidden=False, readout="sum"):
         super(GraphAttentionNetwork, self).__init__()
 
         if not isinstance(hidden_dims, Sequence):
             hidden_dims = [hidden_dims]
         self.input_dim = input_dim
+        self.num_relation = num_relation
         self.output_dim = sum(hidden_dims) if concat_hidden else hidden_dims[-1]
         self.dims = [input_dim] + list(hidden_dims)
         self.short_cut = short_cut

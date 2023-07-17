@@ -59,4 +59,3 @@ class KnowledgeBaseGraphAttentionNetwork(models.GraphAttentionNetwork, core.Conf
         entity = self.linear(output["node_feature"])
         score = functional.transe_score(entity, self.relation, h_index, t_index, r_index)
         return self.max_score - score
-
