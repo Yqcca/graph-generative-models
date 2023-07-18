@@ -18,9 +18,9 @@ def generate_node_structural_feature(graph, max_cycle=8):
 
     graph_nx = nx.Graph(graph.edge_list[:, :2].tolist())
     cycles = [cycle for cycle in nx.cycle_basis(graph_nx) if len(cycle) <= max_cycle]
-    cycle_lens = torch.tensor([len(cycle) for cycle in cycles], device=graph.device) - MIN_CYCLE
+    cycle_lens = torch.tensor([len(cycle) for cycle in cycles], dtype=torch.int64, device=graph.device) - MIN_CYCLE
     node_in_cycles = torch.tensor([[i in cycle for cycle in cycles] for i in range(graph.num_node)],
-                                  dtype=torch.int, device=graph.device)
+                                  dtype=torch.int64, device=graph.device)
     node_cycle_counts = scatter_add(node_in_cycles, cycle_lens, dim_size=max_cycle - MIN_CYCLE + 1)
     with graph.node():
         graph.node_structural_feature = node_cycle_counts

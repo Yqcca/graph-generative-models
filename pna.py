@@ -201,7 +201,7 @@ class PNALayer(MessagePassingBase):
 
     def __repr__(self):
         return (f'{self.__class__.__name__}({self.in_channels}, '
-                f'{self.out_channels}, towers={self.towers}, dim={self.dim})')
+                f'{self.out_channels}, towers={self.towers})')
 
 
 class PNA(nn.Module, core.Configurable):
