@@ -112,7 +112,6 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
         self.register_buffer("edge_baseline", torch.zeros(self.max_node + 1))
 
     def forward(self, batch):
-        """"""
         all_loss = torch.tensor(0, dtype=torch.float32, device=self.device)
         metric = {}
 
@@ -358,7 +357,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 metric["SA1(min)"] = sa1.min()
                 self.update_best_result(graph, sa1, "SA1")      
 
-                reward += (sa1 / self.reward_temperature).exp()
+                reward -= (sa1 / self.reward_temperature).exp()
 
                 if sa1.min().item() < 0.8:
                     print("SA1 min = %s" % sa1.min().item())
@@ -1219,7 +1218,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 metric["SA1(min)"] = sa1.min()
                 self.update_best_result(graph, sa1, "SA1")      
 
-                reward += (sa1 / self.reward_temperature).exp()
+                reward -= (sa1 / self.reward_temperature).exp()
 
                 if sa1.min().item() < 0.8:
                     print("SA1 min = %s" % sa1.min().item())
