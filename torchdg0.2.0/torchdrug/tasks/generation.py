@@ -180,6 +180,15 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 elif task == "drd2":
                     metric["DRD2"] = nan
                     metric["DRD2(max)"] = nan
+                elif task == "median1":
+                    metric["MEDIAN1"] = nan
+                    metric["MEDIAN1(max)"] = nan
+                elif task == "median2":
+                    metric["MEDIAN2"] = nan
+                    metric["MEDIAN2(max)"] = nan
+                elif task == "sa1":
+                    metric["SA1"] = nan
+                    metric["SA1(max)"] = nan
 
             metric["node PPO objective"] = nan
             metric["edge PPO objective"] = nan
@@ -319,6 +328,42 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                     print("DRD2 max = %s" % drd2.max().item())
                     print(self.best_results["DRD2"])
 
+            elif task == "median1":
+                median1 = metrics.MEDIAN1(graph)
+                metric["MEDIAN1"] = median1.mean()
+                metric["MEDIAN1(max)"] = median1.max()
+                self.update_best_result(graph, median1, "MEDIAN1")      
+
+                reward += (median1 / self.reward_temperature).exp()
+
+                if median1.max().item() > 0.8:
+                    print("MEDIAN1 max = %s" % median1.max().item())
+                    print(self.best_results["MEDIAN1"])
+
+            elif task == "median2":
+                median2 = metrics.MEDIAN2(graph)
+                metric["MEDIAN2"] = median2.mean()
+                metric["MEDIAN2(max)"] = median2.max()
+                self.update_best_result(graph, median2, "MEDIAN2")      
+
+                reward += (median2 / self.reward_temperature).exp()
+
+                if median2.max().item() > 0.8:
+                    print("MEDIAN2 max = %s" % median2.max().item())
+                    print(self.best_results["MEDIAN2"])
+
+            elif task == "sa1":
+                sa1 = metrics.SA1(graph)
+                metric["SA1"] = sa1.mean()
+                metric["SA1(max)"] = sa1.max()
+                self.update_best_result(graph, sa1, "SA1")      
+
+                reward += (sa1 / self.reward_temperature).exp()
+
+                if sa1.max().item() > 0.8:
+                    print("SA1 max = %s" % sa1.max().item())
+                    print(self.best_results["SA1"])
+                    
             else:
                 raise ValueError("Unknown task `%s`" % task)
 
@@ -992,6 +1037,15 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 elif task == "drd2":
                     metric["DRD2"] = nan
                     metric["DRD2(max)"] = nan
+                elif task == "median1":
+                    metric["MEDIAN1"] = nan
+                    metric["MEDIAN1(max)"] = nan
+                elif task == "median2":
+                    metric["MEDIAN2"] = nan
+                    metric["MEDIAN2(max)"] = nan
+                elif task == "sa1":
+                    metric["SA1"] = nan
+                    metric["SA1(max)"] = nan
 
             metric["PPO objective"] = nan
 
@@ -1134,6 +1188,42 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 if drd2.max().item() > 0.8:
                     print("DRD2 max = %s" % drd2.max().item())
                     print(self.best_results["DRD2"])
+
+            elif task == "median1":
+                median1 = metrics.MEDIAN1(graph)
+                metric["MEDIAN1"] = median1.mean()
+                metric["MEDIAN1(max)"] = median1.max()
+                self.update_best_result(graph, median1, "MEDIAN1")      
+
+                reward += (median1 / self.reward_temperature).exp()
+
+                if median1.max().item() > 0.8:
+                    print("MEDIAN1 max = %s" % median1.max().item())
+                    print(self.best_results["MEDIAN1"])
+
+            elif task == "median2":
+                median2 = metrics.MEDIAN2(graph)
+                metric["MEDIAN2"] = median2.mean()
+                metric["MEDIAN2(max)"] = median2.max()
+                self.update_best_result(graph, median2, "MEDIAN2")      
+
+                reward += (median2 / self.reward_temperature).exp()
+
+                if median2.max().item() > 0.8:
+                    print("MEDIAN2 max = %s" % median2.max().item())
+                    print(self.best_results["MEDIAN2"])
+
+            elif task == "sa1":
+                sa1 = metrics.SA1(graph)
+                metric["SA1"] = sa1.mean()
+                metric["SA1(max)"] = sa1.max()
+                self.update_best_result(graph, sa1, "SA1")      
+
+                reward += (sa1 / self.reward_temperature).exp()
+
+                if sa1.max().item() > 0.8:
+                    print("SA1 max = %s" % sa1.max().item())
+                    print(self.best_results["SA1"])
                     
             else:
                 raise ValueError("Unknown task `%s`" % task)

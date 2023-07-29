@@ -30,6 +30,57 @@ def DRD2(pred):
 
     return torch.tensor(drd2, dtype=torch.float, device=pred.device)
 
+@R.register("metrics.median1")
+def MEDIAN1(pred):
+    """
+    MEDIAN1
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    median1 = []
+    AMEDIAN1 = Oracle(name = 'median1')
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = AMEDIAN1(mol.to_smiles())
+        median1.append(score)
+
+    return torch.tensor(median1, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.median2")
+def MEDIAN2(pred):
+    """
+    MEDIAN2
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    median2 = []
+    AMEDIAN2 = Oracle(name = 'median2')
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = AMEDIAN2(mol.to_smiles())
+        median2.append(score)
+
+    return torch.tensor(median2, dtype=torch.float, device=pred.device)
+
+@R.register("metrics.sa1")
+def SA1(pred):
+    """
+    SA1
+
+    Parameters:
+        pred (PackedMolecule): molecules to evaluate
+    """
+    sa1 = []
+    ASA1 = Oracle(name = 'SA')
+    for mol in pred:
+        with utils.no_rdkit_log():
+            score = ASA1(mol.to_smiles())
+        sa1.append(score)
+
+    return torch.tensor(sa1, dtype=torch.float, device=pred.device)
+
 @R.register("metrics.amlodipine_mpo")
 def AMLODIPINE_MPO(pred):
     """
