@@ -187,7 +187,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                     metric["MEDIAN2(max)"] = nan
                 elif task == "sa1":
                     metric["SA1"] = nan
-                    metric["SA1(min)"] = nan
+                    metric["SA1(max)"] = nan
 
             metric["node PPO objective"] = nan
             metric["edge PPO objective"] = nan
@@ -354,13 +354,13 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
             elif task == "sa1":
                 sa1 = metrics.SA1(graph)
                 metric["SA1"] = sa1.mean()
-                metric["SA1(min)"] = sa1.min()
+                metric["SA1(max)"] = sa1.max()
                 self.update_best_result(graph, sa1, "SA1")      
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if sa1.min().item() < 0.8:
-                    print("SA1 min = %s" % sa1.min().item())
+                if abs(sa1.max().item()) > -0.8:
+                    print("SA1 max = %s" % sa1.max().item())
                     print(self.best_results["SA1"])
                     
             else:
@@ -1044,7 +1044,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                     metric["MEDIAN2(max)"] = nan
                 elif task == "sa1":
                     metric["SA1"] = nan
-                    metric["SA1(min)"] = nan
+                    metric["SA1(max)"] = nan
 
             metric["PPO objective"] = nan
 
@@ -1215,13 +1215,13 @@ class GCPNGeneration(tasks.Task, core.Configurable):
             elif task == "sa1":
                 sa1 = metrics.SA1(graph)
                 metric["SA1"] = sa1.mean()
-                metric["SA1(min)"] = sa1.min()
+                metric["SA1(max)"] = sa1.max()
                 self.update_best_result(graph, sa1, "SA1")      
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if sa1.min().item() < 0.8:
-                    print("SA1 min = %s" % sa1.min().item())
+                if abs(sa1.max().item()) > -0.8:
+                    print("SA1 max = %s" % sa1.max().item())
                     print(self.best_results["SA1"])
                     
             else:
