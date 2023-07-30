@@ -76,7 +76,7 @@ def SA1(pred):
     ASA1 = Oracle(name = 'SA')
     for mol in pred:
         with utils.no_rdkit_log():
-            score = ASA1(mol.to_smiles())
+            score = -ASA1(mol.to_smiles())
         sa1.append(score)
 
     return torch.tensor(sa1, dtype=torch.float, device=pred.device)

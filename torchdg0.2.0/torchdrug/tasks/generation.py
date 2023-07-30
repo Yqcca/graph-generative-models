@@ -357,7 +357,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 metric["SA1(min)"] = sa1.min()
                 self.update_best_result(graph, sa1, "SA1")      
 
-                reward -= (sa1 / self.reward_temperature).exp()
+                reward -= (abs(sa1) / self.reward_temperature).exp()
 
                 if sa1.min().item() < 0.8:
                     print("SA1 min = %s" % sa1.min().item())
@@ -483,7 +483,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
         self.best_results[task] = best_results
 
     @torch.no_grad()
-    def generate(self, num_sample, max_resample=20, off_policy=False, early_stop=False, verbose=0):
+    def generate(self, num_sample, max_resample=10, off_policy=False, early_stop=False, verbose=0):
         num_relation = self.num_bond_type - 1
         is_training = self.training
         self.eval()
@@ -996,7 +996,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
         self.batch_id += 1
 
         # generation takes less time when early_stop=True
-        graph = self.generate(len(batch["graph"]), max_resample=20, off_policy=True, max_step=40 * 2, verbose=1)
+        graph = self.generate(len(batch["graph"]), max_resample=10, off_policy=True, max_step=40 * 2, verbose=1)
         if len(graph) == 0 or graph.num_nodes.max() == 1:
             logger.error("Generation results collapse to singleton molecules")
 
@@ -1218,7 +1218,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 metric["SA1(min)"] = sa1.min()
                 self.update_best_result(graph, sa1, "SA1")      
 
-                reward -= (sa1 / self.reward_temperature).exp()
+                reward -= (abs(sa1) / self.reward_temperature).exp()
 
                 if sa1.min().item() < 0.8:
                     print("SA1 min = %s" % sa1.min().item())
@@ -1697,7 +1697,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
         self.best_results[task] = best_results
 
     @torch.no_grad()
-    def generate(self, num_sample, max_resample=20, off_policy=False, max_step=30 * 2, initial_smiles="C", verbose=0):
+    def generate(self, num_sample, max_resample=10, off_policy=False, max_step=30 * 2, initial_smiles="C", verbose=0):
         is_training = self.training
         self.eval()
 
