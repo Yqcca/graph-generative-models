@@ -187,7 +187,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                     metric["MEDIAN2(max)"] = nan
                 elif task == "sa1":
                     metric["SA1"] = nan
-                    metric["SA1(max)"] = nan
+                    metric["SA1(min)"] = nan
 
             metric["node PPO objective"] = nan
             metric["edge PPO objective"] = nan
@@ -212,8 +212,8 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 metric["QED"] = qed.mean()
                 metric["QED (max)"] = qed.max()
                 self.update_best_result(graph, qed, "QED")
-                reward += (qed / self.reward_temperature).exp()
-                #reward += qed * 3
+                # reward += (qed / self.reward_temperature).exp()
+                reward += qed * 3
 
                 if qed.max().item() > 0.93:
                     print("QED max = %s" % qed.max().item())
@@ -354,13 +354,13 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
             elif task == "sa1":
                 sa1 = metrics.SA1(graph)
                 metric["SA1"] = sa1.mean()
-                metric["SA1(max)"] = sa1.max()
-                self.update_best_result(graph, sa1, "SA1")      
+                metric["SA1(min)"] = sa1.min()
+                self.update_best_result1(graph, sa1, "SA1")      
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if abs(sa1.max().item()) > -0.8:
-                    print("SA1 max = %s" % sa1.max().item())
+                if abs(sa1.min().item()) < 1.2:
+                    print("SA1 min = %s" % sa1.min().item())
                     print(self.best_results["SA1"])
                     
             else:
@@ -479,6 +479,19 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 break
             best_results.append((s, graph[i].to_smiles()))
             best_results.sort(reverse=True)
+            best_results = best_results[:self.top_k]
+        self.best_results[task] = best_results
+
+    def update_best_result1(self, graph, score, task):
+        score = score.cpu()
+        best_results = self.best_results[task]
+        for s, i in zip(*score.sort()):
+            s = s.item()
+            i = i.item()
+            if len(best_results) == self.top_k and s > best_results[-1][0]:
+                break
+            best_results.append((s, graph[i].to_smiles()))
+            best_results.sort()
             best_results = best_results[:self.top_k]
         self.best_results[task] = best_results
 
@@ -1044,7 +1057,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                     metric["MEDIAN2(max)"] = nan
                 elif task == "sa1":
                     metric["SA1"] = nan
-                    metric["SA1(max)"] = nan
+                    metric["SA1(min)"] = nan
 
             metric["PPO objective"] = nan
 
@@ -1215,13 +1228,13 @@ class GCPNGeneration(tasks.Task, core.Configurable):
             elif task == "sa1":
                 sa1 = metrics.SA1(graph)
                 metric["SA1"] = sa1.mean()
-                metric["SA1(max)"] = sa1.max()
-                self.update_best_result(graph, sa1, "SA1")      
+                metric["SA1(min)"] = sa1.min()
+                self.update_best_result1(graph, sa1, "SA1")      
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if abs(sa1.max().item()) > -0.8:
-                    print("SA1 max = %s" % sa1.max().item())
+                if abs(sa1.min().item()) < 1.2:
+                    print("SA1 min = %s" % sa1.min().item())
                     print(self.best_results["SA1"])
                     
             else:
@@ -1693,6 +1706,19 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 break
             best_results.append((s, graph[i].to_smiles()))
             best_results.sort(reverse=True)
+            best_results = best_results[:self.top_k]
+        self.best_results[task] = best_results
+
+    def update_best_result1(self, graph, score, task):
+        score = score.cpu()
+        best_results = self.best_results[task]
+        for s, i in zip(*score.sort()):
+            s = s.item()
+            i = i.item()
+            if len(best_results) == self.top_k and s > best_results[-1][0]:
+                break
+            best_results.append((s, graph[i].to_smiles()))
+            best_results.sort()
             best_results = best_results[:self.top_k]
         self.best_results[task] = best_results
 
