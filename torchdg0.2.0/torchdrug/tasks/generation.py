@@ -1220,7 +1220,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if sa1.min().item() < 5:
+                if abs(sa1.min().item()) < 5:
                     print("SA1 min = %s" % sa1.min().item())
                     print(self.best_results["SA1"])
                     
