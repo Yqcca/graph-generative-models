@@ -227,7 +227,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (amlodipine_mpo / self.reward_temperature).exp()
 
-                if amlodipine_mpo.max().item() > 0.8:
+                if amlodipine_mpo.max().item() > 0.1:
                     print("AMLODIPINE_MPO max = %s" % amlodipine_mpo.max().item())
                     print(self.best_results["AMLODIPINE_MPO"])
                     
@@ -239,7 +239,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (fexofenadine_mpo / self.reward_temperature).exp()
 
-                if fexofenadine_mpo.max().item() > 0.8:
+                if fexofenadine_mpo.max().item() > 0.1:
                     print("FEXOFENADINE_MPO max = %s" % fexofenadine_mpo.max().item())
                     print(self.best_results["FEXOFENADINE_MPO"])
 
@@ -251,7 +251,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (osimertinib_mpo / self.reward_temperature).exp()
 
-                if osimertinib_mpo.max().item() > 0.8:
+                if osimertinib_mpo.max().item() > 0.1:
                     print("OSIMERTINIB_MPO max = %s" % osimertinib_mpo.max().item())
                     print(self.best_results["OSIMERTINIB_MPO"])
 
@@ -263,7 +263,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (perindopril_mpo / self.reward_temperature).exp()
 
-                if perindopril_mpo.max().item() > 0.8:
+                if perindopril_mpo.max().item() > 0.1:
                     print("PERINDOPRIL_MPO max = %s" % perindopril_mpo.max().item())
                     print(self.best_results["PERINDOPRIL_MPO"])
 
@@ -275,7 +275,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (ranolazine_mpo / self.reward_temperature).exp()
 
-                if ranolazine_mpo.max().item() > 0.8:
+                if ranolazine_mpo.max().item() > 0.1:
                     print("RANOLAZINE_MPO max = %s" % ranolazine_mpo.max().item())
                     print(self.best_results["RANOLAZINE_MPO"])
 
@@ -287,7 +287,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (sitagliptin_mpo / self.reward_temperature).exp()
 
-                if sitagliptin_mpo.max().item() > 0.8:
+                if sitagliptin_mpo.max().item() > 0.1:
                     print("SITAGLIPTIN_MPO max = %s" % sitagliptin_mpo.max().item())
                     print(self.best_results["SITAGLIPTIN_MPO"])
 
@@ -299,7 +299,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (zaleplon_mpo / self.reward_temperature).exp()
 
-                if zaleplon_mpo.max().item() > 0.8:
+                if zaleplon_mpo.max().item() > 0.1:
                     print("ZALEPLON_MPO max = %s" % zaleplon_mpo.max().item())
                     print(self.best_results["ZALEPLON_MPO"])         
 
@@ -311,7 +311,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (valsartan_smarts / self.reward_temperature).exp()
 
-                if valsartan_smarts.max().item() > 0.8:
+                if valsartan_smarts.max().item() > 0.1:
                     print("VALSARTAN_SMARTS max = %s" % valsartan_smarts.max().item())
                     print(self.best_results["VALSARTAN_SMARTS"])  
 
@@ -323,7 +323,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (drd2 / self.reward_temperature).exp()
 
-                if drd2.max().item() > 0.8:
+                if drd2.max().item() > 0.1:
                     print("DRD2 max = %s" % drd2.max().item())
                     print(self.best_results["DRD2"])
 
@@ -335,7 +335,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (median1 / self.reward_temperature).exp()
 
-                if median1.max().item() > 0.8:
+                if median1.max().item() > 0.1:
                     print("MEDIAN1 max = %s" % median1.max().item())
                     print(self.best_results["MEDIAN1"])
 
@@ -347,7 +347,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward += (median2 / self.reward_temperature).exp()
 
-                if median2.max().item() > 0.8:
+                if median2.max().item() > 0.1:
                     print("MEDIAN2 max = %s" % median2.max().item())
                     print(self.best_results["MEDIAN2"])
 
@@ -359,7 +359,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if abs(sa1.min().item()) < 1.2:
+                if abs(sa1.min().item()) < 5:
                     print("SA1 min = %s" % sa1.min().item())
                     print(self.best_results["SA1"])
                     
@@ -1088,7 +1088,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (amlodipine_mpo / self.reward_temperature).exp()
 
-                if amlodipine_mpo.max().item() > 0.8:
+                if amlodipine_mpo.max().item() > 0.1:
                     print("AMLODIPINE_MPO max = %s" % amlodipine_mpo.max().item())
                     print(self.best_results["AMLODIPINE_MPO"])
                     
@@ -1100,7 +1100,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (fexofenadine_mpo / self.reward_temperature).exp()
 
-                if fexofenadine_mpo.max().item() > 0.8:
+                if fexofenadine_mpo.max().item() > 0.1:
                     print("FEXOFENADINE_MPO max = %s" % fexofenadine_mpo.max().item())
                     print(self.best_results["FEXOFENADINE_MPO"])
 
@@ -1112,7 +1112,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (osimertinib_mpo / self.reward_temperature).exp()
 
-                if osimertinib_mpo.max().item() > 0.8:
+                if osimertinib_mpo.max().item() > 0.1:
                     print("OSIMERTINIB_MPO max = %s" % osimertinib_mpo.max().item())
                     print(self.best_results["OSIMERTINIB_MPO"])
 
@@ -1124,7 +1124,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (perindopril_mpo / self.reward_temperature).exp()
 
-                if perindopril_mpo.max().item() > 0.8:
+                if perindopril_mpo.max().item() > 0.1:
                     print("PERINDOPRIL_MPO max = %s" % perindopril_mpo.max().item())
                     print(self.best_results["PERINDOPRIL_MPO"])
 
@@ -1136,7 +1136,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (ranolazine_mpo / self.reward_temperature).exp()
 
-                if ranolazine_mpo.max().item() > 0.8:
+                if ranolazine_mpo.max().item() > 0.1:
                     print("RANOLAZINE_MPO max = %s" % ranolazine_mpo.max().item())
                     print(self.best_results["RANOLAZINE_MPO"])
 
@@ -1148,7 +1148,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (sitagliptin_mpo / self.reward_temperature).exp()
 
-                if sitagliptin_mpo.max().item() > 0.8:
+                if sitagliptin_mpo.max().item() > 0.1:
                     print("SITAGLIPTIN_MPO max = %s" % sitagliptin_mpo.max().item())
                     print(self.best_results["SITAGLIPTIN_MPO"])
 
@@ -1160,7 +1160,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (zaleplon_mpo / self.reward_temperature).exp()
 
-                if zaleplon_mpo.max().item() > 0.8:
+                if zaleplon_mpo.max().item() > 0.1:
                     print("ZALEPLON_MPO max = %s" % zaleplon_mpo.max().item())
                     print(self.best_results["ZALEPLON_MPO"])         
 
@@ -1172,7 +1172,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (valsartan_smarts / self.reward_temperature).exp()
 
-                if valsartan_smarts.max().item() > 0.8:
+                if valsartan_smarts.max().item() > 0.1:
                     print("VALSARTAN_SMARTS max = %s" % valsartan_smarts.max().item())
                     print(self.best_results["VALSARTAN_SMARTS"])  
 
@@ -1184,7 +1184,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (drd2 / self.reward_temperature).exp()
 
-                if drd2.max().item() > 0.8:
+                if drd2.max().item() > 0.1:
                     print("DRD2 max = %s" % drd2.max().item())
                     print(self.best_results["DRD2"])
 
@@ -1196,7 +1196,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (median1 / self.reward_temperature).exp()
 
-                if median1.max().item() > 0.8:
+                if median1.max().item() > 0.1:
                     print("MEDIAN1 max = %s" % median1.max().item())
                     print(self.best_results["MEDIAN1"])
 
@@ -1208,7 +1208,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward += (median2 / self.reward_temperature).exp()
 
-                if median2.max().item() > 0.8:
+                if median2.max().item() > 0.1:
                     print("MEDIAN2 max = %s" % median2.max().item())
                     print(self.best_results["MEDIAN2"])
 
@@ -1220,7 +1220,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
 
                 reward -= (abs(sa1) / self.reward_temperature).exp()
 
-                if sa1.min().item() < 1.2:
+                if sa1.min().item() < 5:
                     print("SA1 min = %s" % sa1.min().item())
                     print(self.best_results["SA1"])
                     
