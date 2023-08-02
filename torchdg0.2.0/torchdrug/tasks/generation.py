@@ -215,7 +215,7 @@ class AutoregressiveGeneration(tasks.Task, core.Configurable):
                 # reward += (qed / self.reward_temperature).exp()
                 reward += qed * 3
 
-                if qed.max().item() > 0.93:
+                if qed.max().item() > 0.9:
                     print("QED max = %s" % qed.max().item())
                     print(self.best_results["QED"])
 
@@ -1076,7 +1076,7 @@ class GCPNGeneration(tasks.Task, core.Configurable):
                 reward += (qed / self.reward_temperature).exp()
 
 
-                if qed.max().item() > 0.93:
+                if qed.max().item() > 0.9:
                     print("QED max = %s" % qed.max().item())
                     print(self.best_results["QED"])
             
