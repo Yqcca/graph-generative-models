@@ -1,6 +1,5 @@
 from collections.abc import Sequence
 import functools
-
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -68,18 +67,16 @@ class GATV2Conv(MessagePassingBase):
         if self.edge_linear:
             edge_input = self.edge_linear(graph.edge_feature.float())
             edge_input = torch.cat([edge_input, torch.zeros(graph.num_node, self.output_dim, device=graph.device)])
-            key += edge_input.unsqueeze(-1)
-        
+            key += edge_input.unsqueeze(-1).reshape(key.size()[0], 1, key.size()[2])
+
         key = key.view(-1, *self.query.shape)
-        key = self.leaky_relu(key)
-        weight = torch.einsum("hd, nhd -> nh", self.query, key)
+        weight = torch.einsum("hd, nhd -> nh", self.query, self.leaky_relu(key))
 
         weight = weight - scatter_max(weight, node_out, dim=0, dim_size=graph.num_node)[0][node_out]
         attention = weight.exp() * edge_weight
         # why mean? because with mean we have normalized message scale across different node degrees
         normalizer = scatter_mean(attention, node_out, dim=0, dim_size=graph.num_node)[node_out]
         attention = attention / (normalizer + self.eps)
-
         value = hidden[node_in].view(-1, self.num_head, self.query.shape[-1] // 2)
         attention = attention.unsqueeze(-1).expand_as(value)
         message = (attention * value).flatten(1)
