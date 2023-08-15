@@ -23,11 +23,12 @@ class GraphAutoregressiveFlow(nn.Module, core.Configurable):
         dequantization_noise (float, optional): scale of dequantization noise
     """
 
-    def __init__(self, model, prior, use_edge=False, num_layer=6, num_mlp_layer=2, dequantization_noise=0.9):
+    def __init__(self, model, prior, use_edge=False, edge_input_dim=None, num_layer=6, num_mlp_layer=2, dequantization_noise=0.9):
         super(GraphAutoregressiveFlow, self).__init__()
         self.model = model
         self.prior = prior
         self.use_edge = use_edge
+        self.edge_input_dim = edge_input_dim
         self.input_dim = self.output_dim = prior.dim
         self.dequantization_noise = dequantization_noise
         assert dequantization_noise < 1
@@ -64,6 +65,8 @@ class GraphAutoregressiveFlow(nn.Module, core.Configurable):
         edge = self._standarize_edge(graph, edge)
 
         node_feature = functional.one_hot(graph.atom_type, self.model.input_dim)
+        edge_feature = functional.one_hot(graph.edge_list[:,-1], self.edge_input_dim)
+        graph.edge_feature = edge_feature
         feature = self.model(graph, node_feature, all_loss, metric)
         node_feature = feature["node_feature"]
         graph_feature = feature["graph_feature"]
@@ -87,7 +90,7 @@ class GraphAutoregressiveFlow(nn.Module, core.Configurable):
 
         return log_likelihood # (batch_size,)
 
-    def sample(self, graph, edge=None, all_loss=None, metric=None):
+    def sample(self, graph,edge=None, all_loss=None, metric=None):
         """
         Sample discrete data based on the given graph(s).
 
@@ -104,6 +107,8 @@ class GraphAutoregressiveFlow(nn.Module, core.Configurable):
         edge = self._standarize_edge(graph, edge)
 
         node_feature = functional.one_hot(graph.atom_type, self.model.input_dim)
+        edge_feature = functional.one_hot(graph.edge_list[:,-1], self.edge_input_dim)
+        graph.edge_feature = edge_feature
         feature = self.model(graph, node_feature, all_loss, metric)
         node_feature = feature["node_feature"]
         graph_feature = feature["graph_feature"]
