@@ -65,8 +65,9 @@ class GraphAutoregressiveFlow(nn.Module, core.Configurable):
         edge = self._standarize_edge(graph, edge)
 
         node_feature = functional.one_hot(graph.atom_type, self.model.input_dim)
-        edge_feature = functional.one_hot(graph.edge_list[:,-1], self.edge_input_dim)
-        graph.edge_feature = edge_feature
+        if self.edge_input_dim:
+            edge_feature = functional.one_hot(graph.edge_list[:,-1], self.edge_input_dim)
+            graph.edge_feature = edge_feature
         feature = self.model(graph, node_feature, all_loss, metric)
         node_feature = feature["node_feature"]
         graph_feature = feature["graph_feature"]
@@ -107,8 +108,9 @@ class GraphAutoregressiveFlow(nn.Module, core.Configurable):
         edge = self._standarize_edge(graph, edge)
 
         node_feature = functional.one_hot(graph.atom_type, self.model.input_dim)
-        edge_feature = functional.one_hot(graph.edge_list[:,-1], self.edge_input_dim)
-        graph.edge_feature = edge_feature
+        if self.edge_input_dim:
+            edge_feature = functional.one_hot(graph.edge_list[:,-1], self.edge_input_dim)
+            graph.edge_feature = edge_feature
         feature = self.model(graph, node_feature, all_loss, metric)
         node_feature = feature["node_feature"]
         graph_feature = feature["graph_feature"]
